@@ -107,6 +107,29 @@ After uploading, restart the Proxmox service:
 sudo systemctl restart pveproxy
 ```
 
+### Troubleshooting Logo Issues
+
+If the custom logo doesn't appear:
+
+1. **Check file permissions:**
+   ```bash
+   sudo chmod 644 /usr/share/pve-manager/images/logo-128-*.png
+   ```
+
+2. **Clear browser cache** (Ctrl+F5 or Ctrl+Shift+R)
+
+3. **Check browser developer tools** (F12) for any CSS conflicts
+
+4. **Verify file exists:**
+   ```bash
+   ls -la /usr/share/pve-manager/images/logo-128-*.png
+   ```
+
+5. **Alternative: Replace default logo directly:**
+   ```bash
+   sudo cp /usr/share/pve-manager/images/logo-128-dark.png /usr/share/pve-manager/images/proxmox_logo.png
+   ```
+
 ## 🤝 Contributing
 
 Found a bug or want to improve something?
