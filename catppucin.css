@@ -1,0 +1,477 @@
+/* --------------------------------------------------------------------
+   Catppuccin Macchiato theme for Proxmox VE Web UI – v1.0
+   Author: ruslanlap
+   Original palette: https://github.com/catppuccin/catppuccin
+   Official Catppuccin colors - Macchiato variant
+   --------------------------------------------------------------------
+   HOW IT WORKS
+   ------------
+   • Proxmox's light UI = body WITHOUT the class `proxmox-theme-dark`
+   • Proxmox's dark UI  = body WITH    the class `proxmox-theme-dark`
+   We therefore map:
+       - Light  → Catppuccin Latte (light variant)
+       - Dark   → Catppuccin Macchiato (dark variant)
+
+   • The file only contains *overrides* – it is safe to load AFTER the
+     stock Proxmox CSS files.
+   • Uses CSS variables for the palette so you can tweak easily.
+   • Tested on PVE 8.x (ExtJS 6.8) in Chromium & Firefox.
+
+   --------------------------------------------------------------------
+   PALETTE (CSS custom properties)
+   --------------------------------------------------------------------*/
+:root {
+    /* Catppuccin Macchiato Base Colors (Official) */
+    --ctp-base: #24273a;
+    --ctp-mantle: #1e2030;
+    --ctp-crust: #181926;
+    --ctp-surface0: #363a4f;
+    --ctp-surface1: #494d64;
+    --ctp-surface2: #5b6078;
+    --ctp-overlay0: #6e738d;
+    --ctp-overlay1: #8087a2;
+    --ctp-overlay2: #939ab7;
+    --ctp-subtext0: #a5adcb;
+    --ctp-subtext1: #b7bdf8;
+    --ctp-text: #cad3f5;
+
+    /* Catppuccin Latte Base Colors (Official) */
+    --ctp-latte-base: #eff1f5;
+    --ctp-latte-mantle: #e6e9ef;
+    --ctp-latte-crust: #dce0e8;
+    --ctp-latte-surface0: #ccd0da;
+    --ctp-latte-surface1: #bcc0cc;
+    --ctp-latte-surface2: #acb0be;
+    --ctp-latte-overlay0: #9ca0b0;
+    --ctp-latte-overlay1: #8c8fa1;
+    --ctp-latte-overlay2: #7c7f93;
+    --ctp-latte-subtext0: #6c6f85;
+    --ctp-latte-subtext1: #5c5f77;
+    --ctp-latte-text: #4c4f69;
+
+    /* Catppuccin Accent Colors (Official) */
+    --ctp-rosewater: #f4dbd6;
+    --ctp-flamingo: #f0c6c6;
+    --ctp-pink: #f5bde6;
+    --ctp-mauve: #c6a0f6;
+    --ctp-red: #ed8796;
+    --ctp-maroon: #ee99a0;
+    --ctp-peach: #f5a97f;
+    --ctp-yellow: #eed49f;
+    --ctp-green: #a6da95;
+    /* Primary accent color */
+    --ctp-teal: #8bd5ca;
+    --ctp-sky: #91d7e3;
+    --ctp-sapphire: #7dc4e4;
+    --ctp-blue: #8aadf4;
+    --ctp-lavender: #b7bdf8;
+}
+
+/* --------------------------------------------------------------------
+     CATPPUCCIN LATTE (light mode – when the dark‑theme class is **absent**)
+     --------------------------------------------------------------------*/
+body:not(.proxmox-theme-dark) {
+    background-color: var(--ctp-latte-base) !important;
+    color: var(--ctp-latte-text) !important;
+    /* font smoothing */
+    -webkit-font-smoothing: antialiased;
+}
+
+body:not(.proxmox-theme-dark) .x-panel-body,
+body:not(.proxmox-theme-dark) .x-panel,
+body:not(.proxmox-theme-dark) .x-window-body,
+body:not(.proxmox-theme-dark) .x-grid-body {
+    background-color: var(--ctp-latte-base) !important;
+    color: var(--ctp-latte-text) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+}
+
+/* Toolbar / header */
+body:not(.proxmox-theme-dark) .x-toolbar,
+body:not(.proxmox-theme-dark) .x-tab-bar,
+body:not(.proxmox-theme-dark) .x-panel-header,
+body:not(.proxmox-theme-dark) .x-header,
+body:not(.proxmox-theme-dark) .x-window-header {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+}
+
+/*Text*/
+body:not(.proxmox-theme-dark) .x-panel-header-title,
+body:not(.proxmox-theme-dark) .x-window-header-title-default {
+    color: var(--ctp-latte-text) !important;
+}
+
+/*Tabs*/
+body:not(.proxmox-theme-dark) .x-tab-active,
+body:not(.proxmox-theme-dark) .x-tab-default,
+body:not(.proxmox-theme-dark) .x-tab {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+/* Buttons and icons */
+body:not(.proxmox-theme-dark) .x-btn-default-toolbar-small,
+body:not(.proxmox-theme-dark) .x-tool-tool-el,
+body:not(.proxmox-theme-dark) .x-tool-img,
+body:not(.proxmox-theme-dark) .x-tool-after-title,
+body:not(.proxmox-theme-dark) .x-tool,
+body:not(.proxmox-theme-dark) .x-btn,
+body:not(.proxmox-theme-dark) .x-btn-inner,
+body:not(.proxmox-theme-dark) .x-title-icon-default,
+body:not(.proxmox-theme-dark) .x-btn-icon-el-default-small,
+body:not(.proxmox-theme-dark) .x-btn-inner-default-small,
+body:not(.proxmox-theme-dark) .x-tool-default {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-btn-default-toolbar-small:hover {
+    background-color: var(--ctp-latte-surface0) !important;
+    color: var(--ctp-green) !important;
+}
+
+/* Status colours */
+body:not(.proxmox-theme-dark) .x-progress.critical .x-progress-bar {
+    background: var(--ctp-red) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-progress.warning .x-progress-bar {
+    background: var(--ctp-yellow) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-tree-icon-custom.running:after {
+    color: var(--ctp-green) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-tree-icon-custom.error:after {
+    color: var(--ctp-red) !important;
+}
+
+/* Tree / navigation */
+body:not(.proxmox-theme-dark) .x-treelist-pve-nav {
+    background-color: var(--ctp-latte-base) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-treelist-item-icon,
+body:not(.proxmox-theme-dark) .x-treelist-item-text {
+    color: var(--ctp-latte-subtext1) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-treelist-row-over * {
+    color: var(--ctp-green) !important;
+}
+
+/* Left sidebar / Server View */
+body:not(.proxmox-theme-dark) .x-treelist,
+body:not(.proxmox-theme-dark) .x-treelist-pve-nav,
+body:not(.proxmox-theme-dark) .x-treelist-item {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+}
+
+/* Form fields and inputs */
+body:not(.proxmox-theme-dark) .x-form-field,
+body:not(.proxmox-theme-dark) .x-form-text,
+body:not(.proxmox-theme-dark) .x-form-item-body,
+body:not(.proxmox-theme-dark) .x-boundlist,
+body:not(.proxmox-theme-dark) .x-combo-list-item {
+    background-color: var(--ctp-latte-base) !important;
+    color: var(--ctp-latte-text) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+}
+
+/* Tables */
+body:not(.proxmox-theme-dark) .x-grid-item {
+    background-color: var(--ctp-latte-base) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid-item-over {
+    background-color: var(--ctp-latte-mantle) !important;
+}
+
+/* Masks / dialogs */
+body:not(.proxmox-theme-dark) .x-mask-msg {
+    background-color: var(--ctp-latte-mantle) !important;
+    border-color: var(--ctp-latte-surface0) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+/* Borders, text-selection, etc. */
+body:not(.proxmox-theme-dark) ::selection {
+    background: var(--ctp-green);
+    color: var(--ctp-latte-base);
+}
+
+/* --------------------------------------------------------------------
+     CATPPUCCIN MACCHIATO (dark mode – when the dark‑theme class is **present**)
+     --------------------------------------------------------------------*/
+body.proxmox-theme-dark {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+}
+
+/* Panels and other */
+body.proxmox-theme-dark .x-panel-body,
+body.proxmox-theme-dark .x-panel,
+body.proxmox-theme-dark .x-grid-item,
+body.proxmox-theme-dark .x-splitter,
+body.proxmox-theme-dark .x-window-body,
+body.proxmox-theme-dark .x-grid-body {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+    border-color: var(--ctp-surface0) !important;
+}
+
+/* Toolbar / header */
+body.proxmox-theme-dark .x-toolbar,
+body.proxmox-theme-dark .x-tab-bar,
+body.proxmox-theme-dark .x-panel-header,
+body.proxmox-theme-dark .x-header,
+body.proxmox-theme-dark .x-window-header {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+}
+
+/* Text in headers */
+body.proxmox-theme-dark .x-panel-header-title,
+body.proxmox-theme-dark .x-window-header-title-default {
+    color: var(--ctp-text) !important;
+}
+
+/* Tabs */
+body.proxmox-theme-dark .x-tab-active,
+body.proxmox-theme-dark .x-tab-default,
+body.proxmox-theme-dark .x-tab {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+    color: var(--ctp-text) !important;
+}
+
+body.proxmox-theme-dark .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+    color: var(--ctp-text) !important;
+}
+
+/* Buttons and icons */
+body.proxmox-theme-dark .x-btn-default-toolbar-small,
+body.proxmox-theme-dark .x-tool-tool-el,
+body.proxmox-theme-dark .x-tool-img,
+body.proxmox-theme-dark .x-tool-after-title,
+body.proxmox-theme-dark .x-tool,
+body.proxmox-theme-dark .x-toolbar,
+body.proxmox-theme-dark .x-btn,
+body.proxmox-theme-dark .x-btn-inner,
+body.proxmox-theme-dark .x-btn-icon-el,
+body.proxmox-theme-dark .x-title-icon-default,
+body.proxmox-theme-dark .x-btn-icon-el-default-small,
+body.proxmox-theme-dark .x-btn-inner-default-small,
+body.proxmox-theme-dark .x-tool-default {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+    color: var(--ctp-text) !important;
+}
+
+body.proxmox-theme-dark .x-btn-default-toolbar-small:hover {
+    background-color: var(--ctp-surface0) !important;
+    color: var(--ctp-green) !important;
+}
+
+/* Status colours */
+body.proxmox-theme-dark .x-progress.critical .x-progress-bar {
+    background: var(--ctp-red) !important;
+}
+
+body.proxmox-theme-dark .x-progress.warning .x-progress-bar {
+    background: var(--ctp-yellow) !important;
+}
+
+body.proxmox-theme-dark .x-tree-icon-custom.running:after {
+    color: var(--ctp-green) !important;
+}
+
+body.proxmox-theme-dark .x-tree-icon-custom.error:after {
+    color: var(--ctp-red) !important;
+}
+
+/* Tree / navigation */
+body.proxmox-theme-dark .x-treelist-pve-nav {
+    background-color: var(--ctp-mantle) !important;
+}
+
+body.proxmox-theme-dark .x-treelist-item {
+    background-color: var(--ctp-base) !important;
+}
+
+body.proxmox-theme-dark .x-treelist-item-icon,
+body.proxmox-theme-dark .x-treelist-item-text {
+    color: var(--ctp-text) !important;
+}
+
+body.proxmox-theme-dark .x-treelist-row-over * {
+    color: var(--ctp-green) !important;
+}
+
+/* Left sidebar / Server View - Dark mode */
+body.proxmox-theme-dark .x-treelist,
+body.proxmox-theme-dark .x-treelist-pve-nav,
+body.proxmox-theme-dark .x-treelist-item {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+}
+
+/* Form fields and inputs - Dark mode */
+body.proxmox-theme-dark .x-form-field,
+body.proxmox-theme-dark .x-form-text,
+body.proxmox-theme-dark .x-form-item-body,
+body.proxmox-theme-dark .x-boundlist,
+body.proxmox-theme-dark .x-combo-list-item {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+    border-color: var(--ctp-surface0) !important;
+}
+
+/* Navigation tree nodes */
+body.proxmox-theme-dark .x-tree-node-text,
+body.proxmox-theme-dark .x-tree-node-leaf .x-tree-node-text {
+    color: var(--ctp-text) !important;
+}
+
+/* Server View specific styling */
+body.proxmox-theme-dark .pve-tree .x-tree-node-text {
+    color: var(--ctp-text) !important;
+}
+
+body.proxmox-theme-dark .pve-tree .x-tree-node-expanded .x-tree-node-text,
+body.proxmox-theme-dark .pve-tree .x-tree-node-collapsed .x-tree-node-text {
+    color: var(--ctp-text) !important;
+}
+
+/* Tables */
+body.proxmox-theme-dark .x-grid-item {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+}
+
+body.proxmox-theme-dark .x-grid-item-over {
+    background-color: var(--ctp-mantle) !important;
+}
+
+body.proxmox-theme-dark .x-treelist-item-selected,
+body.proxmox-theme-dark .x-grid-item-selected,
+body.proxmox-theme-dark .x-treelist-item-selected>.x-treelist-row {
+    background-color: var(--ctp-surface0) !important;
+    color: var(--ctp-green) !important;
+}
+
+/* Masks / dialogs */
+body.proxmox-theme-dark .x-mask-msg {
+    background-color: var(--ctp-mantle) !important;
+    border-color: var(--ctp-surface0) !important;
+    color: var(--ctp-text) !important;
+}
+
+/* --------------------------------------------------------------------
+     GENERIC OVERRIDES (apply to both light & dark)
+     --------------------------------------------------------------------*/
+
+/* Additional Proxmox-specific elements */
+.x-treelist-nav,
+.pve-tree,
+.x-tree-panel {
+    background-color: inherit !important;
+}
+
+/* Navigation and tree styling for both modes */
+body.proxmox-theme-dark .x-treelist-nav .x-treelist-item-text,
+body:not(.proxmox-theme-dark) .x-treelist-nav .x-treelist-item-text {
+    color: inherit !important;
+}
+
+/* Console and terminal styling */
+body.proxmox-theme-dark .x-console,
+body.proxmox-theme-dark .xterm,
+body.proxmox-theme-dark .xterm-viewport {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-console,
+body:not(.proxmox-theme-dark) .xterm,
+body:not(.proxmox-theme-dark) .xterm-viewport {
+    background-color: var(--ctp-latte-base) !important;
+    color: var(--ctp-latte-text) !important;
+}
+
+/* Task viewer and logs styling */
+body.proxmox-theme-dark .x-grid-with-row-lines .x-grid-table,
+body.proxmox-theme-dark .x-grid-with-col-lines .x-grid-table {
+    border-color: var(--ctp-surface0) !important;
+}
+
+body:not(.proxmox-theme-dark) .x-grid-with-row-lines .x-grid-table,
+body:not(.proxmox-theme-dark) .x-grid-with-col-lines .x-grid-table {
+    border-color: var(--ctp-latte-surface0) !important;
+}
+
+.x-grid-filters-filtered-column .x-column-header-text:after {
+    color: var(--ctp-green) !important;
+}
+
+.x-tree-icon-custom.pending:after,
+.x-grid-icon-custom.pending:after {
+    color: var(--ctp-yellow) !important;
+}
+
+.x-tree-icon-custom.online:after,
+.x-grid-icon-custom.online:after {
+    color: var(--ctp-green) !important;
+}
+
+.x-tree-icon-custom.paused:after,
+.x-grid-icon-custom.paused:after {
+    color: var(--ctp-yellow) !important;
+}
+
+.x-tree-icon-custom.suspended:after,
+.x-grid-icon-custom.suspended:after {
+    color: var(--ctp-yellow) !important;
+}
+
+.x-tree-icon-custom.unknown:after,
+.x-grid-icon-custom.unknown:after {
+    color: var(--ctp-overlay0) !important;
+}
+
+/* Borders, text-selection, etc. */
+body.proxmox-theme-dark ::selection {
+    background: var(--ctp-green);
+    color: var(--ctp-base);
+}
+
+/* Additional green accent highlights */
+body.proxmox-theme-dark .x-btn-focus,
+body.proxmox-theme-dark .x-btn-default-small-focus,
+body:not(.proxmox-theme-dark) .x-btn-focus,
+body:not(.proxmox-theme-dark) .x-btn-default-small-focus {
+    border-color: var(--ctp-green) !important;
+    box-shadow: 0 0 0 1px var(--ctp-green) !important;
+}
+
+/* Form fields with green accents */
+body.proxmox-theme-dark .x-form-field-focus,
+body:not(.proxmox-theme-dark) .x-form-field-focus {
+    border-color: var(--ctp-green) !important;
+}
+
+/* End of file */
