@@ -73,12 +73,10 @@ body.proxmox-theme-dark .your-element {
 ## 📸 Preview
 
 ### Light Theme (Catppuccin Latte)
-![Light Theme - Catppuccin Latte](./Images/light-catppucin.png)
-**[View Full Image](./Images/light-catppucin.png)**
+![Light Theme - Catppuccin Latte](./Images/light-catppuccin.png)
 
 ### Dark Theme (Catppuccin Mocha)
-![Dark Theme - Catppuccin Mocha](./Images/dark-catppucin.png)
-**[View Full Image](./Images/dark-catppucin.png)**
+![Dark Theme - Catppuccin Mocha](./Images/dark-catppuccin.png)
 
 ## 🎨 Custom Logos
 

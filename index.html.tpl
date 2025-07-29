@@ -67,7 +67,7 @@
   });
 </script>
 
-<link rel="stylesheet" href="/pve2/images/catppucin.css">
+<link rel="stylesheet" href="/pve2/images/catppuccin.css">
 
   </head>
   <body>
