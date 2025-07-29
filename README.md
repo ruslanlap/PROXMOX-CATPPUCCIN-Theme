@@ -86,6 +86,27 @@ body.proxmox-theme-dark .your-element {
 ### Light Theme Logo  
 ![Light Logo](./Images/logo-128-light.png)
 
+### Upload Custom Logo via SCP
+
+To upload your custom logo to the Proxmox server:
+
+```bash
+# Upload dark theme logo
+scp /path/to/your/logo-128-dark.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
+
+# Upload light theme logo  
+scp /path/to/your/logo-128-light.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
+
+# Example (Windows PowerShell):
+PS C:\Users\YOU\Desktop> scp C:\Users\YOU\Desktop\logo-128-dark.png root@192.253.1.103:/usr/share/pve-manager/images/
+
+```
+
+After uploading, restart the Proxmox service:
+```bash
+sudo systemctl restart pveproxy
+```
+
 ## 🤝 Contributing
 
 Found a bug or want to improve something?

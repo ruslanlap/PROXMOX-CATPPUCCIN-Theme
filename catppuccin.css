@@ -474,4 +474,22 @@ body:not(.proxmox-theme-dark) .x-form-field-focus {
     border-color: var(--ctp-green) !important;
 }
 
+/* --------------------------------------------------------------------
+   CUSTOM LOGO OVERRIDE
+   --------------------------------------------------------------------*/
+/* Replace Proxmox logo with custom Catppuccin logo */
+img[id^="proxmoxlogo-"][id$="-img"] {
+    content: url('/pve2/images/logo-128-dark.png') !important;
+}
+
+/* Light theme logo */
+body:not(.proxmox-theme-dark) img[id^="proxmoxlogo-"][id$="-img"] {
+    content: url('/pve2/images/logo-128-light.png') !important;
+}
+
+/* Dark theme logo */
+body.proxmox-theme-dark img[id^="proxmoxlogo-"][id$="-img"] {
+    content: url('/pve2/images/logo-128-dark.png') !important;
+}
+
 /* End of file */
