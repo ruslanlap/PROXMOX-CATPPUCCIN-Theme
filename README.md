@@ -2,6 +2,8 @@
 
 Transform your Proxmox VE web interface with the soothing Catppuccin color palette. This theme automatically adapts between light (Latte) and dark (Mocha) variants based on your Proxmox theme settings.
 
+> **Inspired by** [SolarPVE](https://github.com/dabeastnet/SolarPVE) - A Solarized-inspired theme for Proxmox VE
+
 ## ✨ What's Included
 
 - **Automatic theme switching** - Seamlessly transitions between light and dark modes
