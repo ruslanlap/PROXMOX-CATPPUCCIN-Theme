@@ -215,8 +215,8 @@ This project is licensed under **CC BY-NC 4.0**.
 
 ## 📋 TODO
 
-- [ ] Add custom Catppuccin-themed logo (`logo-128-dark.png`)
-- [ ] Create light variant logo (`logo-128-light.png`)
+- [x] Add custom Catppuccin-themed logo (`logo-128-dark.png`)
+- [x] Create light variant logo (`logo-128-light.png`)
 - [ ] Update favicon references in template
 
 ---
