@@ -72,6 +72,68 @@ body.proxmox-theme-dark .your-element {
 }
 ```
 
+## 🖥️ Terminal Customization
+
+### Proxmox Shell Theme
+
+For a complete Catppuccin experience, customize your Proxmox shell environment:
+
+### Quick Setup (Recommended)
+
+Add this to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+# ✅ Catppuccin Macchiato background/text (лише для інтерактивного shell)
+if [[ $- == *i* ]]; then
+    printf '\033]11;#181926\007'  # background: crust
+    printf '\033]10;#cad3f5\007'  # foreground: text
+    echo -ne ''
+fi
+
+# ✅ Enable colored output for commands
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+# Aliases for colored `ls` and safer commands
+alias ls='ls --color=auto'
+alias ll='ls -alF --color=auto'
+alias la='ls -A --color=auto'
+alias l='ls -CF --color=auto'
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# ✅ Cursor: green & blinking (Catppuccin accent green)
+if [[ $- == *i* ]]; then
+    echo -ne '\e]12;#a6da95\a'     # cursor color
+    echo -ne '\e[?12;25h'          # blinking on
+fi
+
+# ✅ Prompt: green username@host, cyan path, gray git branch
+if [ -x "$(command -v git)" ]; then
+    parse_git_branch() {
+        git branch 2>/dev/null | sed -n '/\* /s///p'
+    }
+    PS1='\[\e[38;5;110m\]\u@\h \[\e[38;5;109m\]\W\[\e[38;5;247m\]$(parse_git_branch)\[\e[0m\] \$ '
+else
+    PS1='\[\e[38;5;110m\]\u@\h \[\e[38;5;109m\]\W\[\e[0m\] \$ '
+fi
+```
+
+### Apply Changes
+```bash
+# Reload shell configuration
+source ~/.bashrc  # or source ~/.zshrc
+
+# Or restart your terminal session
+```
+
+
 ## 📸 Preview
 
 ### Light Theme (Catppuccin Latte)
