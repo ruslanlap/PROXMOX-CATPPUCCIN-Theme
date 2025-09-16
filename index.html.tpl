@@ -57,13 +57,78 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Look for the Proxmox dark-theme stylesheet
-    const darkLink = document.querySelector(
-      'link[href*="theme-proxmox-dark.css"]'
-    );
-    if (darkLink) {
-      document.body.classList.add('proxmox-theme-dark');
+    const DARK_THEME_SELECTOR = 'link[href*="theme-proxmox-dark.css"]';
+    const hasMatchMedia = typeof window.matchMedia === 'function';
+    const prefersDark = hasMatchMedia
+      ? window.matchMedia('(prefers-color-scheme: dark)')
+      : { matches: false };
+
+    const isDarkLinkEl = (node) =>
+      node &&
+      node.tagName === 'LINK' &&
+      typeof node.href === 'string' &&
+      node.href.includes('theme-proxmox-dark.css');
+
+    const isDarkModeActive = () => {
+      const darkLink = document.querySelector(DARK_THEME_SELECTOR);
+      if (!darkLink) {
+        return false;
+      }
+
+      const { media } = darkLink;
+      if (!media || media === 'all') {
+        return true;
+      }
+
+      if (hasMatchMedia) {
+        try {
+          return window.matchMedia(media).matches;
+        } catch (error) {
+          /* no-op, fall through */
+        }
+      }
+
+      return prefersDark.matches;
+    };
+
+    const applyThemeClass = () => {
+      const darkMode = isDarkModeActive();
+      document.body.classList.toggle('proxmox-theme-dark', darkMode);
+      document.body.classList.toggle('proxmox-theme-light', !darkMode);
+    };
+
+    applyThemeClass();
+
+    if (typeof prefersDark.addEventListener === 'function') {
+      prefersDark.addEventListener('change', applyThemeClass);
+    } else if (typeof prefersDark.addListener === 'function') {
+      prefersDark.addListener(applyThemeClass);
     }
+
+    const observer = new MutationObserver((mutations) => {
+      const relevant = mutations.some((mutation) => {
+        if (mutation.type === 'attributes' && isDarkLinkEl(mutation.target)) {
+          return true;
+        }
+
+        const nodes = [
+          ...mutation.addedNodes,
+          ...mutation.removedNodes,
+        ];
+        return nodes.some((node) => isDarkLinkEl(node));
+      });
+
+      if (relevant) {
+        applyThemeClass();
+      }
+    });
+
+    observer.observe(document.head, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['media', 'href'],
+    });
   });
 </script>
 

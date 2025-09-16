@@ -1,15 +1,16 @@
 # 🎨 Proxmox Catppuccin Theme
 
-Transform your Proxmox VE web interface with the soothing Catppuccin color palette. This theme automatically adapts between light (Latte) and dark (Mocha) variants based on your Proxmox theme settings.
+Transform your Proxmox VE web interface with the soothing Catppuccin color palette. This refresh ships Latte (light) and Macchiato (dark) variants that react to both your Proxmox preference and your OS color scheme.
 
 > **Inspired by** [SolarPVE](https://github.com/dabeastnet/SolarPVE) - A Solarized-inspired theme for Proxmox VE
 
 ## ✨ What's Included
 
-- **Automatic theme switching** - Seamlessly transitions between light and dark modes
-- **Catppuccin color scheme** - Based on the popular Catppuccin palette
-- **Zero JavaScript dependencies** - Pure CSS with minimal inline detection script
-- **Easy installation** - Simple template modification
+- **Adaptive theme switching** – Works with manual, auto, and OS-driven dark mode
+- **Polished Catppuccin surfaces** – Panels, navigation, console, login, & scrollbars
+- **Semantic color tokens** – Quick theming via friendly CSS custom properties
+- **Dependency-free helper** – Tiny vanilla script keeps classes in sync
+- **Drop-in install** – Copy one CSS file and one snippet into the default template
 
 ## 🚀 Quick Start
 
@@ -20,15 +21,76 @@ sudo cp catppuccin.css /usr/share/pve-manager/images/
 ```
 
 ### Step 2: Update the Template
-Modify `/usr/share/pve-manager/index.html.tpl` by adding this before `</head>`:
+Modify `/usr/share/pve-manager/index.html.tpl` by dropping the helper snippet **just before** `</head>` (or copy it directly from this repo):
 
 ```html
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const darkLink = document.querySelector('link[href*="theme-proxmox-dark.css"]');
-    if (darkLink) {
-      document.body.classList.add('proxmox-theme-dark');
+    const DARK_THEME_SELECTOR = 'link[href*="theme-proxmox-dark.css"]';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const isDarkLinkEl = (node) =>
+      node &&
+      node.tagName === 'LINK' &&
+      typeof node.href === 'string' &&
+      node.href.includes('theme-proxmox-dark.css');
+
+    const isDarkModeActive = () => {
+      const darkLink = document.querySelector(DARK_THEME_SELECTOR);
+      if (!darkLink) {
+        return false;
+      }
+
+      const { media } = darkLink;
+      if (!media || media === 'all') {
+        return true;
+      }
+
+      try {
+        return window.matchMedia(media).matches;
+      } catch (error) {
+        return prefersDark.matches;
+      }
+    };
+
+    const applyThemeClass = () => {
+      const darkMode = isDarkModeActive();
+      document.body.classList.toggle('proxmox-theme-dark', darkMode);
+      document.body.classList.toggle('proxmox-theme-light', !darkMode);
+    };
+
+    applyThemeClass();
+
+    if (typeof prefersDark.addEventListener === 'function') {
+      prefersDark.addEventListener('change', applyThemeClass);
+    } else if (typeof prefersDark.addListener === 'function') {
+      prefersDark.addListener(applyThemeClass);
     }
+
+    const observer = new MutationObserver((mutations) => {
+      const relevant = mutations.some((mutation) => {
+        if (mutation.type === 'attributes' && isDarkLinkEl(mutation.target)) {
+          return true;
+        }
+
+        const nodes = [
+          ...mutation.addedNodes,
+          ...mutation.removedNodes,
+        ];
+        return nodes.some((node) => isDarkLinkEl(node));
+      });
+
+      if (relevant) {
+        applyThemeClass();
+      }
+    });
+
+    observer.observe(document.head, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['media', 'href'],
+    });
   });
 </script>
 <link rel="stylesheet" href="/pve2/images/catppuccin.css">
@@ -44,33 +106,35 @@ Hard refresh your browser (Ctrl+F5) to see the changes.
 
 ## 🎯 How It Works
 
-The theme uses CSS custom properties and a simple detection script:
+The CSS exports semantic tokens (backgrounds, borders, accents) that the helper script swaps between Latte and Macchiato:
 
-- **Light Mode**: Default Catppuccin Latte colors when Proxmox uses light theme
-- **Dark Mode**: Catppuccin Mocha colors when `theme-proxmox-dark.css` is detected
-
-The detection script adds a `proxmox-theme-dark` class to the body element, allowing targeted dark-mode styling.
+- When the Proxmox dark bundle is active, the script toggles `proxmox-theme-dark` and Macchiato tokens take over
+- When it is absent, the body receives `proxmox-theme-light` and Latte tokens are used
+- Auto/OS dark mode is handled via `matchMedia` listeners and a `MutationObserver`, so hot theme changes stay in sync without reloading
 
 ## 🎨 Customization
 
-Edit the CSS variables in `catppuccin.css` to tweak colors:
+Tweak the semantic tokens in `catppuccin.css` to retune the vibe without hunting every selector.
 
 ```css
 :root {
-  --base00: #1e1e2e;  /* Dark background */
-  --base01: #181825;  /* Lighter background */
-  --accent: #cba6f7;  /* Accent color */
-  /* ... more variables */
+  --pve-focus: var(--ctp-teal);      /* Accent for buttons, focus rings */
+  --pve-success: var(--ctp-green);   /* VM running state */
+  --pve-warning: var(--ctp-yellow);  /* Pending/paused */
+  --pve-danger: var(--ctp-red);      /* Errors & failures */
+  --pve-scrollbar-thumb: #d2d7e0;    /* Optional lighter scrollbars */
+  /* …see the file for more tokens */
+}
+
+body.proxmox-theme-dark {
+  --pve-focus: var(--ctp-sapphire);  /* Swap dark-mode accent */
+  --pve-scrollbar-thumb: #575c76;
 }
 ```
 
-For dark-mode specific overrides:
-
-```css
-body.proxmox-theme-dark .your-element {
-  /* Dark mode styles */
-}
-```
+- **Want a different accent?** Override `--pve-focus` in both blocks.
+- **Prefer flat panels?** Set `--pve-shadow: none;`.
+- **Disable login glow?** Remove the `#loginform` block at the end.
 
 ## 🖥️ Terminal Customization
 
@@ -222,5 +286,3 @@ This project is licensed under **CC BY-NC 4.0**.
 ---
 
 **Enjoy your beautifully themed Proxmox interface!** 🌟
-
-

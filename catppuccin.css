@@ -1,27 +1,23 @@
 /* --------------------------------------------------------------------
-   Catppuccin Macchiato theme for Proxmox VE Web UI – v1.0
-   Author: ruslanlap
-   Original palette: https://github.com/catppuccin/catppuccin
-   Official Catppuccin colors - Macchiato variant
+   Proxmox VE ✦ Catppuccin Refinement Pack
    --------------------------------------------------------------------
-   HOW IT WORKS
-   ------------
-   • Proxmox's light UI = body WITHOUT the class `proxmox-theme-dark`
-   • Proxmox's dark UI  = body WITH    the class `proxmox-theme-dark`
-   We therefore map:
-       - Light  → Catppuccin Latte (light variant)
-       - Dark   → Catppuccin Macchiato (dark variant)
+   Version: 1.2
+   Author: ruslanlap (revamped with ♥ by Codex)
+   Palette: https://github.com/catppuccin/catppuccin
 
-   • The file only contains *overrides* – it is safe to load AFTER the
-     stock Proxmox CSS files.
-   • Uses CSS variables for the palette so you can tweak easily.
-   • Tested on PVE 8.x (ExtJS 6.8) in Chromium & Firefox.
-
-   --------------------------------------------------------------------
-   PALETTE (CSS custom properties)
+   Highlights
+   ----------
+   • Pure CSS override that layers on top of the stock Proxmox bundle
+   • Friendly CSS variables for both Latte (light) and Macchiato (dark)
+   • Subtle transitions, legible contrast, and consistent accent usage
+   • Color-scheme hints + scrollbar polish for a cohesive desktop feel
    --------------------------------------------------------------------*/
+
+/* --------------------------------------------------------------------
+   1. Catppuccin palette tokens
+   -------------------------------------------------------------------- */
 :root {
-    /* Catppuccin Macchiato Base Colors (Official) */
+    /* Macchiato (dark) */
     --ctp-base: #24273a;
     --ctp-mantle: #1e2030;
     --ctp-crust: #181926;
@@ -35,7 +31,7 @@
     --ctp-subtext1: #b7bdf8;
     --ctp-text: #cad3f5;
 
-    /* Catppuccin Latte Base Colors (Official) */
+    /* Latte (light) */
     --ctp-latte-base: #eff1f5;
     --ctp-latte-mantle: #e6e9ef;
     --ctp-latte-crust: #dce0e8;
@@ -49,7 +45,7 @@
     --ctp-latte-subtext1: #5c5f77;
     --ctp-latte-text: #4c4f69;
 
-    /* Catppuccin Accent Colors (Official) */
+    /* Accents */
     --ctp-rosewater: #f4dbd6;
     --ctp-flamingo: #f0c6c6;
     --ctp-pink: #f5bde6;
@@ -59,7 +55,6 @@
     --ctp-peach: #f5a97f;
     --ctp-yellow: #eed49f;
     --ctp-green: #a6da95;
-    /* Primary accent color */
     --ctp-teal: #8bd5ca;
     --ctp-sky: #91d7e3;
     --ctp-sapphire: #7dc4e4;
@@ -68,428 +63,593 @@
 }
 
 /* --------------------------------------------------------------------
-     CATPPUCCIN LATTE (light mode – when the dark‑theme class is **absent**)
-     --------------------------------------------------------------------*/
-body:not(.proxmox-theme-dark) {
-    background-color: var(--ctp-latte-base) !important;
-    color: var(--ctp-latte-text) !important;
-    /* font smoothing */
+   2. Semantic tokens (Light defaults)
+   -------------------------------------------------------------------- */
+:root {
+    --pve-bg: var(--ctp-latte-base);
+    --pve-shell-bg: var(--ctp-latte-crust);
+    --pve-surface: var(--ctp-latte-base);
+    --pve-surface-alt: var(--ctp-latte-mantle);
+    --pve-elevated: var(--ctp-latte-mantle);
+    --pve-border: var(--ctp-latte-surface0);
+    --pve-border-strong: var(--ctp-latte-surface1);
+    --pve-text: var(--ctp-latte-text);
+    --pve-muted: var(--ctp-latte-subtext1);
+    --pve-subtext: var(--ctp-latte-subtext0);
+    --pve-link: var(--ctp-blue);
+    --pve-hover: var(--ctp-latte-surface0);
+    --pve-hover-raised: var(--ctp-latte-surface1);
+    --pve-selection: var(--ctp-green);
+    --pve-selection-text: var(--ctp-latte-base);
+    --pve-focus: var(--ctp-teal);
+    --pve-shadow: 0 12px 28px rgba(17, 19, 31, 0.10);
+    --pve-scrollbar-track: var(--ctp-latte-mantle);
+    --pve-scrollbar-thumb: var(--ctp-latte-surface1);
+    --pve-input-bg: var(--ctp-latte-base);
+    --pve-badge-bg: var(--ctp-sky);
+    --pve-badge-text: var(--ctp-latte-text);
+    --pve-code-bg: var(--ctp-latte-crust);
+    --pve-code-border: rgba(76, 79, 105, 0.28);
+    --pve-chart-fill: rgba(139, 213, 202, 0.22);
+    --pve-chart-line: var(--ctp-teal);
+
+    --pve-success: var(--ctp-green);
+    --pve-warning: var(--ctp-yellow);
+    --pve-danger: var(--ctp-red);
+    --pve-info: var(--ctp-blue);
+
+    color-scheme: light;
+}
+
+body.proxmox-theme-dark {
+    --pve-bg: var(--ctp-base);
+    --pve-shell-bg: var(--ctp-crust);
+    --pve-surface: var(--ctp-base);
+    --pve-surface-alt: var(--ctp-mantle);
+    --pve-elevated: var(--ctp-mantle);
+    --pve-border: var(--ctp-surface0);
+    --pve-border-strong: var(--ctp-surface1);
+    --pve-text: var(--ctp-text);
+    --pve-muted: var(--ctp-overlay1);
+    --pve-subtext: var(--ctp-overlay0);
+    --pve-link: var(--ctp-sky);
+    --pve-hover: var(--ctp-surface0);
+    --pve-hover-raised: var(--ctp-surface1);
+    --pve-selection: var(--ctp-green);
+    --pve-selection-text: var(--ctp-base);
+    --pve-focus: var(--ctp-sapphire);
+    --pve-shadow: 0 16px 42px rgba(4, 8, 20, 0.55);
+    --pve-scrollbar-track: var(--ctp-mantle);
+    --pve-scrollbar-thumb: var(--ctp-surface1);
+    --pve-input-bg: var(--ctp-mantle);
+    --pve-badge-bg: rgba(139, 213, 202, 0.18);
+    --pve-badge-text: var(--ctp-text);
+    --pve-code-bg: var(--ctp-crust);
+    --pve-code-border: rgba(202, 211, 245, 0.14);
+    --pve-chart-fill: rgba(139, 213, 202, 0.16);
+    --pve-chart-line: var(--ctp-teal);
+
+    color-scheme: dark;
+}
+
+body.proxmox-theme-dark,
+body.proxmox-theme-light,
+body {
+    background-color: var(--pve-bg) !important;
+    color: var(--pve-text) !important;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-body:not(.proxmox-theme-dark) .x-panel-body,
-body:not(.proxmox-theme-dark) .x-panel,
-body:not(.proxmox-theme-dark) .x-window-body,
-body:not(.proxmox-theme-dark) .x-grid-body {
-    background-color: var(--ctp-latte-base) !important;
-    color: var(--ctp-latte-text) !important;
-    border-color: var(--ctp-latte-surface0) !important;
+body {
+    font-feature-settings: "liga" 1;
 }
 
-/* Toolbar / header */
-body:not(.proxmox-theme-dark) .x-toolbar,
-body:not(.proxmox-theme-dark) .x-tab-bar,
-body:not(.proxmox-theme-dark) .x-panel-header,
-body:not(.proxmox-theme-dark) .x-header,
-body:not(.proxmox-theme-dark) .x-window-header {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-}
-
-/*Text*/
-body:not(.proxmox-theme-dark) .x-panel-header-title,
-body:not(.proxmox-theme-dark) .x-window-header-title-default {
-    color: var(--ctp-latte-text) !important;
-}
-
-/*Tabs*/
-body:not(.proxmox-theme-dark) .x-tab-active,
-body:not(.proxmox-theme-dark) .x-tab-default,
-body:not(.proxmox-theme-dark) .x-tab {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-    color: var(--ctp-latte-text) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-    color: var(--ctp-latte-text) !important;
-}
-
-/* Buttons and icons */
-body:not(.proxmox-theme-dark) .x-btn-default-toolbar-small,
-body:not(.proxmox-theme-dark) .x-tool-tool-el,
-body:not(.proxmox-theme-dark) .x-tool-img,
-body:not(.proxmox-theme-dark) .x-tool-after-title,
-body:not(.proxmox-theme-dark) .x-tool,
-body:not(.proxmox-theme-dark) .x-btn,
-body:not(.proxmox-theme-dark) .x-btn-inner,
-body:not(.proxmox-theme-dark) .x-title-icon-default,
-body:not(.proxmox-theme-dark) .x-btn-icon-el-default-small,
-body:not(.proxmox-theme-dark) .x-btn-inner-default-small,
-body:not(.proxmox-theme-dark) .x-tool-default {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-    color: var(--ctp-latte-text) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-btn-default-toolbar-small:hover {
-    background-color: var(--ctp-latte-surface0) !important;
-    color: var(--ctp-green) !important;
-}
-
-/* Status colours */
-body:not(.proxmox-theme-dark) .x-progress.critical .x-progress-bar {
-    background: var(--ctp-red) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-progress.warning .x-progress-bar {
-    background: var(--ctp-yellow) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-tree-icon-custom.running:after {
-    color: var(--ctp-green) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-tree-icon-custom.error:after {
-    color: var(--ctp-red) !important;
-}
-
-/* Tree / navigation */
-body:not(.proxmox-theme-dark) .x-treelist-pve-nav {
-    background-color: var(--ctp-latte-base) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-treelist-item-icon,
-body:not(.proxmox-theme-dark) .x-treelist-item-text {
-    color: var(--ctp-latte-subtext1) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-treelist-row-over * {
-    color: var(--ctp-green) !important;
-}
-
-/* Left sidebar / Server View */
-body:not(.proxmox-theme-dark) .x-treelist,
-body:not(.proxmox-theme-dark) .x-treelist-pve-nav,
-body:not(.proxmox-theme-dark) .x-treelist-item {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-}
-
-/* Form fields and inputs */
-body:not(.proxmox-theme-dark) .x-form-field,
-body:not(.proxmox-theme-dark) .x-form-text,
-body:not(.proxmox-theme-dark) .x-form-item-body,
-body:not(.proxmox-theme-dark) .x-boundlist,
-body:not(.proxmox-theme-dark) .x-combo-list-item {
-    background-color: var(--ctp-latte-base) !important;
-    color: var(--ctp-latte-text) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-}
-
-/* Tables */
-body:not(.proxmox-theme-dark) .x-grid-item {
-    background-color: var(--ctp-latte-base) !important;
-    color: var(--ctp-latte-text) !important;
-}
-
-body:not(.proxmox-theme-dark) .x-grid-item-over {
-    background-color: var(--ctp-latte-mantle) !important;
-}
-
-/* Masks / dialogs */
-body:not(.proxmox-theme-dark) .x-mask-msg {
-    background-color: var(--ctp-latte-mantle) !important;
-    border-color: var(--ctp-latte-surface0) !important;
-    color: var(--ctp-latte-text) !important;
-}
-
-/* Borders, text-selection, etc. */
-body:not(.proxmox-theme-dark) ::selection {
-    background: var(--ctp-green);
-    color: var(--ctp-latte-base);
+body,
+.x-panel,
+.x-window,
+.x-grid-item,
+.x-btn,
+.x-form-field {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 /* --------------------------------------------------------------------
-     CATPPUCCIN MACCHIATO (dark mode – when the dark‑theme class is **present**)
-     --------------------------------------------------------------------*/
-body.proxmox-theme-dark {
-    background-color: var(--ctp-base) !important;
-    color: var(--ctp-text) !important;
+   3. Typography & links
+   -------------------------------------------------------------------- */
+a,
+.x-grid-cell a,
+.x-tree-node-text a {
+    color: var(--pve-link) !important;
 }
 
-/* Panels and other */
-body.proxmox-theme-dark .x-panel-body,
-body.proxmox-theme-dark .x-panel,
-body.proxmox-theme-dark .x-grid-item,
-body.proxmox-theme-dark .x-splitter,
-body.proxmox-theme-dark .x-window-body,
-body.proxmox-theme-dark .x-grid-body {
-    background-color: var(--ctp-base) !important;
-    color: var(--ctp-text) !important;
-    border-color: var(--ctp-surface0) !important;
+a:hover,
+a:focus {
+    color: var(--pve-focus) !important;
 }
 
-/* Toolbar / header */
-body.proxmox-theme-dark .x-toolbar,
-body.proxmox-theme-dark .x-tab-bar,
-body.proxmox-theme-dark .x-panel-header,
-body.proxmox-theme-dark .x-header,
-body.proxmox-theme-dark .x-window-header {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
+.x-panel-header-title-default,
+.x-window-header-title-default,
+.x-grid-header-ct,
+.x-grid-item,
+.x-label-default,
+.x-form-item-label,
+.x-component {
+    color: var(--pve-text) !important;
 }
 
-/* Text in headers */
-body.proxmox-theme-dark .x-panel-header-title,
-body.proxmox-theme-dark .x-window-header-title-default {
-    color: var(--ctp-text) !important;
+.x-mask-msg-text,
+.x-component-default,
+.x-form-field,
+.x-form-text {
+    color: var(--pve-text) !important;
+}
+
+.x-form-empty-field {
+    color: var(--pve-muted) !important;
+}
+
+/* --------------------------------------------------------------------
+   4. Panel & card surfaces
+   -------------------------------------------------------------------- */
+.x-panel,
+.x-panel-default,
+.x-panel-body,
+.x-window,
+.x-window-body,
+.x-window-default,
+.x-grid-item,
+.x-grid-body,
+.pve-panel-loaded {
+    background-color: var(--pve-surface) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-border) !important;
+}
+
+.x-window-default,
+.x-boundlist,
+.x-menu,
+.x-tip-default {
+    background-color: var(--pve-elevated) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: var(--pve-shadow) !important;
+}
+
+.x-tip-default .x-tip-body-default,
+.x-menu-item,
+.x-boundlist-item,
+.x-boundlist-item-over {
+    background-color: transparent !important;
+    color: var(--pve-text) !important;
+}
+
+.x-menu-item-focus,
+.x-boundlist-item-over,
+.x-boundlist-selected {
+    background-color: var(--pve-hover) !important;
+    color: var(--pve-focus) !important;
+}
+
+/* Headers & toolbars */
+.x-toolbar,
+.x-panel-header,
+.x-window-header,
+.x-tab-bar,
+.x-panel-header-default,
+.x-toolbar-default,
+.x-header {
+    background-color: var(--pve-elevated) !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-text) !important;
+}
+
+.x-toolbar-separator,
+.x-toolbar-resizer {
+    background-color: var(--pve-border) !important;
 }
 
 /* Tabs */
-body.proxmox-theme-dark .x-tab-active,
-body.proxmox-theme-dark .x-tab-default,
-body.proxmox-theme-dark .x-tab {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
-    color: var(--ctp-text) !important;
+.x-tab-default,
+.x-tab {
+    background-color: var(--pve-elevated) !important;
+    border-color: var(--pve-border) !important;
+    color: var(--pve-muted) !important;
 }
 
-body.proxmox-theme-dark .x-tab.x-tab-active.x-tab-default .x-tab-inner-default {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
-    color: var(--ctp-text) !important;
+.x-tab-active,
+.x-tab.x-tab-active .x-tab-inner-default,
+.x-tab.x-tab-active {
+    background-color: var(--pve-hover) !important;
+    border-color: var(--pve-border-strong) !important;
+    color: var(--pve-text) !important;
 }
 
-/* Buttons and icons */
-body.proxmox-theme-dark .x-btn-default-toolbar-small,
-body.proxmox-theme-dark .x-tool-tool-el,
-body.proxmox-theme-dark .x-tool-img,
-body.proxmox-theme-dark .x-tool-after-title,
-body.proxmox-theme-dark .x-tool,
-body.proxmox-theme-dark .x-toolbar,
-body.proxmox-theme-dark .x-btn,
-body.proxmox-theme-dark .x-btn-inner,
-body.proxmox-theme-dark .x-btn-icon-el,
-body.proxmox-theme-dark .x-title-icon-default,
-body.proxmox-theme-dark .x-btn-icon-el-default-small,
-body.proxmox-theme-dark .x-btn-inner-default-small,
-body.proxmox-theme-dark .x-tool-default {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
-    color: var(--ctp-text) !important;
-}
-
-body.proxmox-theme-dark .x-btn-default-toolbar-small:hover {
-    background-color: var(--ctp-surface0) !important;
-    color: var(--ctp-green) !important;
-}
-
-/* Status colours */
-body.proxmox-theme-dark .x-progress.critical .x-progress-bar {
-    background: var(--ctp-red) !important;
-}
-
-body.proxmox-theme-dark .x-progress.warning .x-progress-bar {
-    background: var(--ctp-yellow) !important;
-}
-
-body.proxmox-theme-dark .x-tree-icon-custom.running:after {
-    color: var(--ctp-green) !important;
-}
-
-body.proxmox-theme-dark .x-tree-icon-custom.error:after {
-    color: var(--ctp-red) !important;
-}
-
-/* Tree / navigation */
-body.proxmox-theme-dark .x-treelist-pve-nav {
-    background-color: var(--ctp-mantle) !important;
-}
-
-body.proxmox-theme-dark .x-treelist-item {
-    background-color: var(--ctp-base) !important;
-}
-
-body.proxmox-theme-dark .x-treelist-item-icon,
-body.proxmox-theme-dark .x-treelist-item-text {
-    color: var(--ctp-text) !important;
-}
-
-body.proxmox-theme-dark .x-treelist-row-over * {
-    color: var(--ctp-green) !important;
-}
-
-/* Left sidebar / Server View - Dark mode */
-body.proxmox-theme-dark .x-treelist,
-body.proxmox-theme-dark .x-treelist-pve-nav,
-body.proxmox-theme-dark .x-treelist-item {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
-}
-
-/* Form fields and inputs - Dark mode */
-body.proxmox-theme-dark .x-form-field,
-body.proxmox-theme-dark .x-form-text,
-body.proxmox-theme-dark .x-form-item-body,
-body.proxmox-theme-dark .x-boundlist,
-body.proxmox-theme-dark .x-combo-list-item {
-    background-color: var(--ctp-base) !important;
-    color: var(--ctp-text) !important;
-    border-color: var(--ctp-surface0) !important;
-}
-
-/* Navigation tree nodes */
-body.proxmox-theme-dark .x-tree-node-text,
-body.proxmox-theme-dark .x-tree-node-leaf .x-tree-node-text {
-    color: var(--ctp-text) !important;
-}
-
-/* Server View specific styling */
-body.proxmox-theme-dark .pve-tree .x-tree-node-text {
-    color: var(--ctp-text) !important;
-}
-
-body.proxmox-theme-dark .pve-tree .x-tree-node-expanded .x-tree-node-text,
-body.proxmox-theme-dark .pve-tree .x-tree-node-collapsed .x-tree-node-text {
-    color: var(--ctp-text) !important;
-}
-
-/* Tables */
-body.proxmox-theme-dark .x-grid-item {
-    background-color: var(--ctp-base) !important;
-    color: var(--ctp-text) !important;
-}
-
-body.proxmox-theme-dark .x-grid-item-over {
-    background-color: var(--ctp-mantle) !important;
-}
-
-body.proxmox-theme-dark .x-treelist-item-selected,
-body.proxmox-theme-dark .x-grid-item-selected,
-body.proxmox-theme-dark .x-treelist-item-selected>.x-treelist-row {
-    background-color: var(--ctp-surface0) !important;
-    color: var(--ctp-green) !important;
-}
-
-/* Masks / dialogs */
-body.proxmox-theme-dark .x-mask-msg {
-    background-color: var(--ctp-mantle) !important;
-    border-color: var(--ctp-surface0) !important;
-    color: var(--ctp-text) !important;
+.x-tab-over {
+    color: var(--pve-focus) !important;
 }
 
 /* --------------------------------------------------------------------
-     GENERIC OVERRIDES (apply to both light & dark)
-     --------------------------------------------------------------------*/
-
-/* Additional Proxmox-specific elements */
+   5. Navigation tree & sidebar
+   -------------------------------------------------------------------- */
+.x-treelist,
 .x-treelist-nav,
+.x-treelist-pve-nav,
 .pve-tree,
 .x-tree-panel {
-    background-color: inherit !important;
+    background-color: var(--pve-surface-alt) !important;
+    border-color: var(--pve-border) !important;
 }
 
-/* Navigation and tree styling for both modes */
-body.proxmox-theme-dark .x-treelist-nav .x-treelist-item-text,
-body:not(.proxmox-theme-dark) .x-treelist-nav .x-treelist-item-text {
-    color: inherit !important;
+.x-treelist-item,
+.x-treelist-row,
+.x-treelist-item-text,
+.x-treelist-item-icon {
+    color: var(--pve-muted) !important;
 }
 
-/* Console and terminal styling */
-body.proxmox-theme-dark .x-console,
-body.proxmox-theme-dark .xterm,
-body.proxmox-theme-dark .xterm-viewport {
-    background-color: var(--ctp-base) !important;
-    color: var(--ctp-text) !important;
+.x-treelist-item-selected > .x-treelist-row,
+.x-treelist-item-selected {
+    background-color: var(--pve-hover) !important;
+    color: var(--pve-focus) !important;
 }
 
-body:not(.proxmox-theme-dark) .x-console,
-body:not(.proxmox-theme-dark) .xterm,
-body:not(.proxmox-theme-dark) .xterm-viewport {
-    background-color: var(--ctp-latte-base) !important;
-    color: var(--ctp-latte-text) !important;
+.x-treelist-row-over,
+.x-treelist-row-over * {
+    color: var(--pve-focus) !important;
 }
 
-/* Task viewer and logs styling */
-body.proxmox-theme-dark .x-grid-with-row-lines .x-grid-table,
-body.proxmox-theme-dark .x-grid-with-col-lines .x-grid-table {
-    border-color: var(--ctp-surface0) !important;
+.x-tree-icon-custom.running:after,
+.x-grid-icon-custom.running:after,
+.x-grid-icon-custom.online:after,
+.x-tree-icon-custom.online:after {
+    color: var(--pve-success) !important;
 }
 
-body:not(.proxmox-theme-dark) .x-grid-with-row-lines .x-grid-table,
-body:not(.proxmox-theme-dark) .x-grid-with-col-lines .x-grid-table {
-    border-color: var(--ctp-latte-surface0) !important;
+.x-tree-icon-custom.error:after,
+.x-grid-icon-custom.error:after {
+    color: var(--pve-danger) !important;
 }
 
-.x-grid-filters-filtered-column .x-column-header-text:after {
-    color: var(--ctp-green) !important;
-}
-
+.x-tree-icon-custom.warning:after,
 .x-tree-icon-custom.pending:after,
-.x-grid-icon-custom.pending:after {
-    color: var(--ctp-yellow) !important;
-}
-
-.x-tree-icon-custom.online:after,
-.x-grid-icon-custom.online:after {
-    color: var(--ctp-green) !important;
-}
-
+.x-grid-icon-custom.pending:after,
+.x-grid-icon-custom.paused:after,
 .x-tree-icon-custom.paused:after,
-.x-grid-icon-custom.paused:after {
-    color: var(--ctp-yellow) !important;
-}
-
-.x-tree-icon-custom.suspended:after,
-.x-grid-icon-custom.suspended:after {
-    color: var(--ctp-yellow) !important;
+.x-grid-icon-custom.suspended:after,
+.x-tree-icon-custom.suspended:after {
+    color: var(--pve-warning) !important;
 }
 
 .x-tree-icon-custom.unknown:after,
 .x-grid-icon-custom.unknown:after {
-    color: var(--ctp-overlay0) !important;
-}
-
-/* Borders, text-selection, etc. */
-body.proxmox-theme-dark ::selection {
-    background: var(--ctp-green);
-    color: var(--ctp-base);
-}
-
-/* Additional green accent highlights */
-body.proxmox-theme-dark .x-btn-focus,
-body.proxmox-theme-dark .x-btn-default-small-focus,
-body:not(.proxmox-theme-dark) .x-btn-focus,
-body:not(.proxmox-theme-dark) .x-btn-default-small-focus {
-    border-color: var(--ctp-green) !important;
-    box-shadow: 0 0 0 1px var(--ctp-green) !important;
-}
-
-/* Form fields with green accents */
-body.proxmox-theme-dark .x-form-field-focus,
-body:not(.proxmox-theme-dark) .x-form-field-focus {
-    border-color: var(--ctp-green) !important;
+    color: var(--pve-muted) !important;
 }
 
 /* --------------------------------------------------------------------
-   CUSTOM LOGO OVERRIDE
-   --------------------------------------------------------------------*/
-/* Replace Proxmox logo with custom Catppuccin logo */
-img[id^="proxmoxlogo-"][id$="-img"] {
+   6. Tables, grids & charts
+   -------------------------------------------------------------------- */
+.x-grid {
+    background-color: var(--pve-surface) !important;
+}
+
+.x-grid-item {
+    background-color: var(--pve-surface) !important;
+    color: var(--pve-text) !important;
+}
+
+.x-grid-item-over,
+.x-grid-item-focused {
+    background-color: var(--pve-hover) !important;
+}
+
+.x-grid-item-selected,
+.x-grid-row-selected,
+.x-grid-item-selected .x-grid-cell,
+.x-grid-row-selected .x-grid-cell {
+    background-color: var(--pve-hover) !important;
+    color: var(--pve-focus) !important;
+}
+
+.x-grid-row-alt {
+    background-color: rgba(139, 213, 202, 0.08) !important;
+}
+
+.x-grid-with-row-lines .x-grid-table,
+.x-grid-with-col-lines .x-grid-table {
+    border-color: var(--pve-border) !important;
+}
+
+.pve-rrd-chart .x-surface-canvas,
+.x-surface-canvas,
+.x-chart-series {
+    background: transparent !important;
+}
+
+.pve-rrd-chart .x-surface {
+    background: linear-gradient(180deg, var(--pve-chart-fill), transparent) !important;
+}
+
+/* Progress bars */
+.x-progress-default .x-progress-bar {
+    background-color: var(--pve-focus) !important;
+}
+
+.x-progress.critical .x-progress-bar {
+    background-color: var(--pve-danger) !important;
+}
+
+.x-progress.warning .x-progress-bar {
+    background-color: var(--pve-warning) !important;
+}
+
+.x-progress-text {
+    color: var(--pve-text) !important;
+}
+
+/* Badges / counters */
+.x-badge,
+.x-tab-badge-inner {
+    background-color: var(--pve-badge-bg) !important;
+    color: var(--pve-badge-text) !important;
+    border-radius: 999px !important;
+}
+
+/* --------------------------------------------------------------------
+   7. Forms & inputs
+   -------------------------------------------------------------------- */
+.x-form-item-body,
+.x-form-field,
+.x-form-text,
+.x-form-trigger,
+.x-form-trigger-wrap,
+.x-fieldset {
+    background-color: var(--pve-input-bg) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-border) !important;
+}
+
+.x-form-trigger {
+    color: var(--pve-muted) !important;
+}
+
+.x-form-focus,
+.x-form-field-focus,
+.x-form-item-body-focus,
+.x-form-trigger-wrap-focus,
+.x-form-field.x-form-invalid-field {
+    border-color: var(--pve-focus) !important;
+    box-shadow: 0 0 0 1px var(--pve-focus) !important;
+}
+
+.x-form-invalid-under,
+.x-fieldset-header-text,
+.x-form-item-label-default {
+    color: var(--pve-muted) !important;
+}
+
+.x-slider-thumb,
+.x-slider-thumb-over,
+.x-slider-thumb-dragging {
+    background-color: var(--pve-focus) !important;
+    border-color: var(--pve-focus) !important;
+}
+
+.x-tagfield-item {
+    background-color: rgba(139, 213, 202, 0.16) !important;
+    border-color: transparent !important;
+    color: var(--pve-focus) !important;
+}
+
+/* --------------------------------------------------------------------
+   8. Buttons & CTAs
+   -------------------------------------------------------------------- */
+.x-btn,
+.x-btn-default-small,
+.x-btn-default-toolbar-small,
+.x-btn-default-toolbar-small .x-btn-inner {
+    background-color: var(--pve-elevated) !important;
+    color: var(--pve-muted) !important;
+    border-color: var(--pve-border) !important;
+}
+
+.x-btn:hover,
+.x-btn-default-toolbar-small:hover,
+.x-btn-over {
+    background-color: var(--pve-hover) !important;
+    color: var(--pve-focus) !important;
+    border-color: var(--pve-focus) !important;
+}
+
+.x-btn-pressed,
+.x-btn-default-toolbar-small.x-btn-pressed {
+    background-color: var(--pve-focus) !important;
+    color: var(--pve-selection-text) !important;
+    border-color: var(--pve-focus) !important;
+    box-shadow: 0 8px 18px rgba(139, 213, 202, 0.25) !important;
+}
+
+.x-btn-disabled,
+.x-item-disabled .x-btn-inner {
+    background-color: var(--pve-surface) !important;
+    color: var(--pve-muted) !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: none !important;
+}
+
+.x-btn-inner,
+.x-btn-icon-el,
+.x-tool,
+.x-tool-img,
+.x-tool-default {
+    color: var(--pve-text) !important;
+}
+
+.x-btn-focus,
+.x-btn-default-small-focus,
+.x-btn-default-toolbar-small-focus {
+    border-color: var(--pve-focus) !important;
+    box-shadow: 0 0 0 1px var(--pve-focus) !important;
+}
+
+/* Toggle buttons */
+.x-btn-pressed .x-btn-inner {
+    color: var(--pve-selection-text) !important;
+}
+
+/* --------------------------------------------------------------------
+   9. Notifications & dialogs
+   -------------------------------------------------------------------- */
+.x-message-box,
+.x-window-warning,
+.x-window-info,
+.x-window-error {
+    background-color: var(--pve-elevated) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: var(--pve-shadow) !important;
+}
+
+.x-message-box .x-window-header,
+.x-window-warning .x-window-header,
+.x-window-info .x-window-header,
+.x-window-error .x-window-header {
+    background-color: var(--pve-elevated) !important;
+    color: var(--pve-text) !important;
+}
+
+.x-message-box .x-tool-close:hover,
+.x-window .x-tool-close:hover {
+    color: var(--pve-danger) !important;
+}
+
+.x-mask,
+.x-mask-msg {
+    background-color: rgba(24, 25, 38, 0.58) !important;
+    color: var(--pve-text) !important;
+}
+
+body.proxmox-theme-light .x-mask,
+body:not(.proxmox-theme-dark) .x-mask {
+    background-color: rgba(230, 233, 239, 0.75) !important;
+    color: var(--pve-text) !important;
+}
+
+/* --------------------------------------------------------------------
+   10. Console, code & shell
+   -------------------------------------------------------------------- */
+.x-console,
+.xterm,
+.xterm-viewport,
+.x-viewport .x-terminal,
+.x-component.console {
+    background-color: var(--pve-shell-bg) !important;
+    color: var(--pve-text) !important;
+}
+
+.x-console .x-panel-header,
+.xterm .x-panel-header {
+    background-color: var(--pve-elevated) !important;
+}
+
+pre,
+code,
+.x-form-textarea {
+    background-color: var(--pve-code-bg) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-code-border) !important;
+}
+
+/* --------------------------------------------------------------------
+   11. Selection, scrollbars & misc polish
+   -------------------------------------------------------------------- */
+::selection {
+    background-color: var(--pve-selection);
+    color: var(--pve-selection-text);
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--pve-scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--pve-scrollbar-thumb);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--pve-hover-raised);
+    border-color: transparent;
+}
+
+/* Login form polish (best-effort selectors) */
+#loginform,
+#loginmask,
+#login-mask,
+.x-body-login,
+.pve-loginbox {
+    background: var(--pve-elevated) !important;
+    color: var(--pve-text) !important;
+    border-color: var(--pve-border) !important;
+    box-shadow: var(--pve-shadow) !important;
+}
+
+#loginform .x-btn,
+#login-mask .x-btn,
+.pve-loginbox .x-btn {
+    background-color: var(--pve-focus) !important;
+    color: var(--pve-selection-text) !important;
+    border-color: transparent !important;
+}
+
+#loginform .x-btn:hover,
+#login-mask .x-btn:hover,
+.pve-loginbox .x-btn:hover {
+    box-shadow: 0 8px 18px rgba(139, 213, 202, 0.35) !important;
+}
+
+/* --------------------------------------------------------------------
+   12. Custom logo override
+   -------------------------------------------------------------------- */
+img[id^="proxmoxlogo-"][id$="-img"],
+#logo img {
     content: url('/pve2/images/logo-128-dark.png') !important;
 }
 
-/* Light theme logo */
-body:not(.proxmox-theme-dark) img[id^="proxmoxlogo-"][id$="-img"] {
+body:not(.proxmox-theme-dark) img[id^="proxmoxlogo-"][id$="-img"],
+body:not(.proxmox-theme-dark) #logo img {
     content: url('/pve2/images/logo-128-light.png') !important;
 }
 
-/* Dark theme logo */
-body.proxmox-theme-dark img[id^="proxmoxlogo-"][id$="-img"] {
+body.proxmox-theme-dark img[id^="proxmoxlogo-"][id$="-img"],
+body.proxmox-theme-dark #logo img {
     content: url('/pve2/images/logo-128-dark.png') !important;
 }
 
-/* End of file */
+/* --------------------------------------------------------------------
+   13. Utility extras
+   -------------------------------------------------------------------- */
+.pve-ct-status-running,
+.pve-qemu-status-running,
+.pve-task-success {
+    color: var(--pve-success) !important;
+}
+
+.pve-task-warning {
+    color: var(--pve-warning) !important;
+}
+
+.pve-task-error,
+.pve-qemu-status-stopped,
+.pve-ct-status-stopped {
+    color: var(--pve-danger) !important;
+}
+
+/* Fin. */
