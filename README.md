@@ -3,7 +3,65 @@
 Transform your Proxmox VE web interface with the soothing Catppuccin color palette. This refresh ships Latte (light) and Macchiato (dark) variants that react to both your Proxmox preference and your OS color scheme.
 
 > **Inspired by** [SolarPVE](https://github.com/dabeastnet/SolarPVE) - A Solarized-inspired theme for Proxmox VE
+## 📸 Preview
 
+### Light Theme (Catppuccin Latte)
+![Light Theme - Catppuccin Latte](./Images/light-catppuccin.png)
+
+### Dark Theme (Catppuccin Mocha)
+![Dark Theme - Catppuccin Mocha](./Images/dark-catppuccin.png)
+
+## 🎨 Custom Logos
+
+### Dark Theme Logo
+![Dark Logo](./Images/logo-128-dark.png)
+
+### Light Theme Logo  
+![Light Logo](./Images/logo-128-light.png)
+
+### Upload Custom Logo via SCP
+
+To upload your custom logo to the Proxmox server:
+
+```bash
+# Upload dark theme logo
+scp /path/to/your/logo-128-dark.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
+
+# Upload light theme logo  
+scp /path/to/your/logo-128-light.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
+
+# Example (Windows PowerShell):
+PS C:\Users\YOU\Desktop> scp C:\Users\YOU\Desktop\logo-128-dark.png root@192.253.1.103:/usr/share/pve-manager/images/
+
+```
+
+After uploading, restart the Proxmox service:
+```bash
+sudo systemctl restart pveproxy
+```
+
+### Troubleshooting Logo Issues
+
+If the custom logo doesn't appear:
+
+1. **Check file permissions:**
+   ```bash
+   sudo chmod 644 /usr/share/pve-manager/images/logo-128-*.png
+   ```
+
+2. **Clear browser cache** (Ctrl+F5 or Ctrl+Shift+R)
+
+3. **Check browser developer tools** (F12) for any CSS conflicts
+
+4. **Verify file exists:**
+   ```bash
+   ls -la /usr/share/pve-manager/images/logo-128-*.png
+   ```
+
+5. **Alternative: Replace default logo directly:**
+   ```bash
+   sudo cp /usr/share/pve-manager/images/logo-128-dark.png /usr/share/pve-manager/images/proxmox_logo.png
+   ```
 ## ✨ What's Included
 
 - **Adaptive theme switching** – Works with manual, auto, and OS-driven dark mode
@@ -198,65 +256,7 @@ source ~/.bashrc  # or source ~/.zshrc
 ```
 
 
-## 📸 Preview
 
-### Light Theme (Catppuccin Latte)
-![Light Theme - Catppuccin Latte](./Images/light-catppuccin.png)
-
-### Dark Theme (Catppuccin Mocha)
-![Dark Theme - Catppuccin Mocha](./Images/dark-catppuccin.png)
-
-## 🎨 Custom Logos
-
-### Dark Theme Logo
-![Dark Logo](./Images/logo-128-dark.png)
-
-### Light Theme Logo  
-![Light Logo](./Images/logo-128-light.png)
-
-### Upload Custom Logo via SCP
-
-To upload your custom logo to the Proxmox server:
-
-```bash
-# Upload dark theme logo
-scp /path/to/your/logo-128-dark.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
-
-# Upload light theme logo  
-scp /path/to/your/logo-128-light.png root@YOUR_SERVER_IP:/usr/share/pve-manager/images/
-
-# Example (Windows PowerShell):
-PS C:\Users\YOU\Desktop> scp C:\Users\YOU\Desktop\logo-128-dark.png root@192.253.1.103:/usr/share/pve-manager/images/
-
-```
-
-After uploading, restart the Proxmox service:
-```bash
-sudo systemctl restart pveproxy
-```
-
-### Troubleshooting Logo Issues
-
-If the custom logo doesn't appear:
-
-1. **Check file permissions:**
-   ```bash
-   sudo chmod 644 /usr/share/pve-manager/images/logo-128-*.png
-   ```
-
-2. **Clear browser cache** (Ctrl+F5 or Ctrl+Shift+R)
-
-3. **Check browser developer tools** (F12) for any CSS conflicts
-
-4. **Verify file exists:**
-   ```bash
-   ls -la /usr/share/pve-manager/images/logo-128-*.png
-   ```
-
-5. **Alternative: Replace default logo directly:**
-   ```bash
-   sudo cp /usr/share/pve-manager/images/logo-128-dark.png /usr/share/pve-manager/images/proxmox_logo.png
-   ```
 
 ## 🤝 Contributing
 
