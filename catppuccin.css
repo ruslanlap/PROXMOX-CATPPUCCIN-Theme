@@ -621,6 +621,11 @@ code,
 img[id^="proxmoxlogo-"][id$="-img"],
 #logo img {
     content: url('/pve2/images/logo-128-dark.png') !important;
+    max-width: 128px !important;
+    max-height: 128px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
 }
 
 body:not(.proxmox-theme-dark) img[id^="proxmoxlogo-"][id$="-img"],

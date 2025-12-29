@@ -42,23 +42,56 @@ sudo systemctl restart pveproxy
 
 ### Troubleshooting Logo Issues
 
-If the custom logo doesn't appear:
+If the custom logo doesn't appear or looks weird (off-color, improperly scaled):
 
-1. **Check file permissions:**
+1. **Use the theme's optimized logos:**
+   
+   Download the properly formatted logos from this repository:
    ```bash
-   sudo chmod 644 /usr/share/pve-manager/images/logo-128-*.png
+   # Download dark theme logo (with redirect following)
+   curl -L -o /tmp/logo-128-dark.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-dark.png
+   
+   # Download light theme logo (with redirect following)
+   curl -L -o /tmp/logo-128-light.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-light.png
+   
+   # Move to Proxmox images directory
+   sudo mv /tmp/logo-128-dark.png /usr/share/pve-manager/images/
+   sudo mv /tmp/logo-128-light.png /usr/share/pve-manager/images/
    ```
 
-2. **Clear browser cache** (Ctrl+F5 or Ctrl+Shift+R)
+2. **Check file permissions:**
+   ```bash
+   sudo chmod 644 /usr/share/pve-manager/images/logo-128-*.png
+   sudo chown root:root /usr/share/pve-manager/images/logo-128-*.png
+   ```
 
-3. **Check browser developer tools** (F12) for any CSS conflicts
+3. **Restart Proxmox service:**
+   ```bash
+   sudo systemctl restart pveproxy
+   ```
 
-4. **Verify file exists:**
+4. **Clear browser cache** (Ctrl+F5 or Ctrl+Shift+R)
+
+5. **Verify files exist:**
    ```bash
    ls -la /usr/share/pve-manager/images/logo-128-*.png
    ```
+   
+   Expected output:
+   ```
+   -rw-r--r-- 1 root root [size] ... /usr/share/pve-manager/images/logo-128-dark.png
+   -rw-r--r-- 1 root root [size] ... /usr/share/pve-manager/images/logo-128-light.png
+   ```
 
-5. **Alternative: Replace default logo directly:**
+6. **Check for CSS conflicts** in browser developer tools (F12)
+
+7. **Logo format requirements:**
+   - Use PNG format with transparency
+   - Recommended size: 128x128 pixels or smaller
+   - The CSS will automatically scale logos to fit (max 128x128px)
+   - Ensure your logo has appropriate colors for dark/light themes
+
+8. **Alternative: Replace default Proxmox logo:**
    ```bash
    sudo cp /usr/share/pve-manager/images/logo-128-dark.png /usr/share/pve-manager/images/proxmox_logo.png
    ```
