@@ -48,11 +48,11 @@ If the custom logo doesn't appear or looks weird (off-color, improperly scaled):
    
    Download the properly formatted logos from this repository:
    ```bash
-   # Download dark theme logo
-   curl -o /tmp/logo-128-dark.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-dark.png
+   # Download dark theme logo (with redirect following)
+   curl -L -o /tmp/logo-128-dark.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-dark.png
    
-   # Download light theme logo
-   curl -o /tmp/logo-128-light.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-light.png
+   # Download light theme logo (with redirect following)
+   curl -L -o /tmp/logo-128-light.png https://raw.githubusercontent.com/ruslanlap/PROXMOX-CATPPUCCIN-Theme/master/Images/logo-128-light.png
    
    # Move to Proxmox images directory
    sudo mv /tmp/logo-128-dark.png /usr/share/pve-manager/images/
@@ -79,8 +79,8 @@ If the custom logo doesn't appear or looks weird (off-color, improperly scaled):
    
    Expected output:
    ```
-   -rw-r--r-- 1 root root XXXX ... /usr/share/pve-manager/images/logo-128-dark.png
-   -rw-r--r-- 1 root root XXXX ... /usr/share/pve-manager/images/logo-128-light.png
+   -rw-r--r-- 1 root root [size] ... /usr/share/pve-manager/images/logo-128-dark.png
+   -rw-r--r-- 1 root root [size] ... /usr/share/pve-manager/images/logo-128-light.png
    ```
 
 6. **Check for CSS conflicts** in browser developer tools (F12)
